@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+
+
+
+
+	<!-- 当前测试扫描组件例子的个人理解步骤：
+	1.把beans.jar,context.jar,core.jar,expression.jar,commons-logging.jar,aop.jar包导入到项目；
+	2.添加如当前的配置文件，注意xml的xsd文件（beans，context）需要添加进来；
+	3.建立包lp.com.annotation下面的类，比如controller包的类，service包的类，repository的类，待第四步的配置被spring的ioc容器扫描到；
+	4.写下扫描的包；
+	5.测试：
+			@Test
+			public void test02() {
+				ApplicationContext ctx = new ClassPathXmlApplicationContext("autoConfig.xml");
+				UserController bean = ctx.getBean("userController", UserController.class);
+				System.out.println(bean);
+		
+				UserService userService = ctx.getBean("userService", UserService.class);
+				System.out.println(userService);
+				
+				UserRepository userRepository = ctx.getBean("userRepository", UserRepository.class);
+				System.out.println(userRepository);
+			}
+			输出结果：
+			
+			lp.com.annotation.contoller.UserController@2698dc7
+			lp.com.annotation.service.UserService@43d7741f
+			lp.com.annotation.repository.UserRepository@17baae6e
+	-->
+	<context:component-scan
+		base-package="lp.com.annotation" />
+
+
+
+
+</beans>

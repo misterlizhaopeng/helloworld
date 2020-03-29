@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="car" class="lp.com.model.Car">
+		<property name="name" value="小帕ssss-------------1"></property>
+	</bean>
+	<bean id="car1" class="lp.com.model.Car">
+		<property name="name" value="小帕2"></property>
+	</bean>
+	<bean id="person" class="lp.com.model.Person" autowire="byName">
+		<property name="name" value="zhangsan" />
+	</bean>
+</beans>

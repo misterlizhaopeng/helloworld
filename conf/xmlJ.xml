@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+
+	<!-- 把指定的组件添加到spring ioc容器中 -->
+	<!-- 要计算的对象 -->
+	<bean id="arithCalculatorImpl"
+		class="lp.com.aop.xmlJ.ArithCalculatorImpl"></bean>
+
+	<!-- 切面1 -->
+	<bean id="annotationAspectJ"
+		class="lp.com.aop.xmlJ.AnnotationAspectJ"></bean>
+	<!-- 切面2 -->
+	<bean id="validationJ" class="lp.com.aop.xmlJ.ValidationJ"></bean>
+
+
+	<aop:config>
+		<!-- 定义切入点，下面可以通过pointcut-ref进行引用该id即可； -->
+		<aop:pointcut
+			expression="execution(* lp.com.aop.xmlJ.*.*(..))" id="express" />
+		<!--前面1：order表示多个切面的执行顺序，越小优先级别越大，ref引用的切面实例 -->
+		<aop:aspect order="1" ref="annotationAspectJ">
+			<!-- 切面的方法 -->
+			<aop:before method="beforeMethodd" pointcut-ref="express" />
+			<aop:after method="afterMethod" pointcut-ref="express" />
+			<aop:after-returning method="returningMethod"
+				pointcut-ref="express" returning="result" />
+			<aop:after-throwing method="exceptionMethod"
+				pointcut-ref="express" throwing="ex" />
+		</aop:aspect>
+		<!--前面1：order表示多个切面的执行顺序，越小优先级别越大，ref引用的切面实例 -->
+		<aop:aspect order="2" ref="validationJ">
+			<aop:before method="beforeMethod" pointcut-ref="express" />
+		</aop:aspect>
+	</aop:config>
+</beans>
